@@ -1,3 +1,16 @@
+This application features a react front end, and a node/express backend that is connected to a postgreSQL database - all and functions have been streamlined using the Knex library.
+
+A few key items to call out below.To run the application make sure your in the working director ending in "\RouteSheet" and then run "NPM Start"
+
+1. All relevant files are in the "src" folder
+2. Data is fetched from the server in the "fetch.js" file, information is then stored in a variable called data
+3. All state is "lifted up" and stored in the "home.js" file
+4. Tables are then populated by the "\helper\list.js" file which filters vehicles based off their location assignment
+5. All moving average data is currently hard coded in the "\forms\summaryTable.js" file, this will need to be updated
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
