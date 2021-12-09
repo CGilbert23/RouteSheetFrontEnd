@@ -1,47 +1,38 @@
-import { useState } from "react";
+import React from "react";
 
+// Components
+import Dropdown from "../Dropdown";
 
-function NewVehicleForm({formData, setFormData, handleChange, handleSubmit}) {
+const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSubmit, title }) => {
 
+  return (
+    <div className="add-form">
+      <label className="addform-input" htmlFor="assignment">Department:
+        <Dropdown options={depts} handleChange={handleChange} handleUpdate={handleUpdate} title={title}/>
+      </label>
+      <label className="addform-input" htmlFor="stock">Stock:
+        <input type='text' id="stock" name="stock" onChange={handleChange} value={formData.stock}></input>
+      </label>
+      <label className="addform-input" htmlFor="year">Year:
+        <input type='number' id="year" name="year" onChange={handleChange} value={formData.year}></input>
+      </label>
+      <label className="addform-input" htmlFor="make">Make:
+        <input type='text' id="make" name="make" onChange={handleChange} value={formData.make}></input>
+      </label>
+      <label className="addform-input" htmlFor="model">Model:
+        <input type='text' id="model" name="model" onChange={handleChange} value={formData.model}></input>
+      </label>
+      <label className="addform-input" htmlFor="date_in">UCM IN:
+        <input type='date' id="date_in" name="date_in" onChange={handleChange} value={formData.date_in}></input>
+      </label>
+      <label className="addform-input" htmlFor="created_at">
+        <input type='hidden' id="created_at" name="created_at" onChange={handleChange} value={formData.created_at}></input>
+      </label>
+     
+      <button className="submit-button" onClick={handleSubmit} type='submit'>Submit</button>
 
-    return (
-      <form action="http://localhost:5000/vehicles" method="POST" onSubmit={handleSubmit}>
-        <label htmlFor="vehicle_stock">Stock:
-          <input type='text' id="vehicle_stock" name="vehicle_stock" onChange={handleChange} value={formData.vehicle_stock}></input>
-        </label>
-        <label htmlFor="vehicle_year">Year:
-          <input type='number' id="vehicle_year" name="vehicle_year" onChange={handleChange} value={formData.vehicle_year}></input>
-        </label>
-        <label htmlFor="vehicle_make">Make:
-          <input type='text' id="vehicle_make" name="vehicle_make" onChange={handleChange} value={formData.vehicle_make}></input>
-        </label>
-        <label htmlFor="vehicle_model">Model:
-          <input type='text' id="vehicle_model" name="vehicle_model" onChange={handleChange} value={formData.vehicle_model}></input>
-        </label>
-        <label htmlFor="date_in">UCM In:
-          <input type='date' id="date_in" name="date_in" onChange={handleChange} value={formData.ucm_in}></input>
-        </label>
-        <label htmlFor="current_date">
-          <input type='hidden' id="current_date" name="current_date" onChange={handleChange} value={formData.date}></input>
-        </label>
-        <label htmlFor="vehicle_assignment">Department:
-          <select id="vehicle_assignment" name="vehicle_assignment" onChange={handleChange} value={formData.vehicle_assignment}>
-          <option value="">Select an option</option>
-          <option value="Holding"> Holding </option> 
-          <option value="Service"> Service </option> 
-          <option value="Annex"> Annex </option> 
-          <option value="AutoExpress"> AutoExpress </option> 
-          <option value="Outside Vendor"> Outside Vendor</option> 
-          <option value="Detail"> Detail </option>
-          <option value="Recon">Recon</option>  
-          <option value="Torro">Torro</option>
-          <option value="Front Line Ready">Front Line Ready</option>
-          </select>
-        </label>
-       <button type='submit'>Submit</button>
-        
-        </form>
-    );
-  }
+    </div>
+  );
+}
 
-  export default NewVehicleForm;
+export default NewVehicleForm;

@@ -1,44 +1,24 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searchVehicles } from "../../redux/actions/vehicles";
 
+const SearchForm = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
+  const vehicles = useSelector(state => state.vehicles);
 
-function SearchForm() {
-
-    /*Log the Stock/Make/Model as an array*/
-   
-    const [stock,setStock] = useState("")
-    
-
-    const handleChange = (event) => {
-    setStock(event.target.value)
+  const handleChange = (event) => {
+    const value = event.target.value
+    setSearchValue(value);
+    dispatch(searchVehicles(vehicles.cars, value));
   }
-    
-   const handleSubmit = (event) => {
-     event.preventDefault()
-     console.log("Stock:", stock)
 
-     setStock("")
-   }
+  return (
+    <form>
+      <label htmlFor="search">Search by Stock, Make & Model : </label>
+      <input className="search-vehicle" type="text" name="search" placeholder="Search Vehicle" onChange={handleChange} value={searchValue}></input>
+    </form>
+  );
+}
 
-
-
-    /*Output*/
-     
-    return (
-        <form method="GET" action="" onSubmit={handleSubmit}>
-          <table>
-            <tbody>
-              <tr>
-                <td className="search-row"> Stock, Make, or Model: 
-                  <input type="text" name="name" maxLength="13" size="13" onChange={handleChange} value={stock}></input>
-                </td>
-                <td className="search-row" colSpan="2"><input type="submit" value="Search"></input></td>
-              </tr>
-            </tbody>  
-            
-          </table> 
-          
-        </form>
-      );
-    }
-
-    export default SearchForm;
+export default SearchForm;

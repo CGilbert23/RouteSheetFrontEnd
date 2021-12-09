@@ -1,99 +1,60 @@
-import { useState } from "react"
+import React from "react";
 
-function List({data,handleDelete ,handleUpdate, cut, isPending, handleChange2, update}){
-   
-    if (isPending){
-      return <p>Data Loading!</p>
-    }  
-  
-    const newData = data
-    
-    
-    const annexTable = newData.filter((item) => item.vehicle_assignment === cut)
-    const rows = annexTable.map(({vehicle_id,vehicle_assignment, vehicle_stock, vehicle_year, vehicle_make, vehicle_model, date_in, current_date, variance, notes}, index) => (
-        <tr>
-        <td>{vehicle_assignment}</td>
-        <td key={vehicle_id}>{vehicle_stock}</td> 
-        <td>{vehicle_year}</td>
-        <td>{vehicle_make}</td>
-        <td>{vehicle_model}</td>
-        <td>{date_in.substring(5,7)+ "/"+ date_in.substring(8,10)+"/"+ date_in.substring(0,4)}</td>
-        <td>{current_date.substring(5,7)+ "/"+ current_date.substring(8,10)+"/"+ current_date.substring(0,4)}</td>
-        <td>{variance}</td>
-        <td>{notes}</td>
-        
-        <td>
-        <label htmlFor="vehicle_assignment">
-          <select id="vehicle_assignment" name="vehicle_assingment" onChange={handleChange2} value={vehicle_assignment}>
-          <option value="Nothing">Select an option</option>
-          <option value="Holding"> Holding </option> 
-          <option value="Service"> Service </option> 
-          <option value="Annex"> Annex </option> 
-          <option value="AutoExpress"> AutoExpress </option> 
-          <option value="Outside Vendor"> Outside Vendor</option> 
-          <option value="Detail"> Detail </option>
-          <option value="Recon">Recon</option>  
-          <option value="Torro">Torro</option>
-          <option value="Front Line Ready">Front Line Ready</option>
-          </select>
-        </label>
-        <button onClick={()=> handleUpdate(vehicle_id)}>Update</button>
-        </td>
-        
-        
-        
-        
-        
-        
-  
-        {/*
-        <td>
-          <select onChange={handleChange2}>
-            <option value =" "> Select an option</option>
-            <option value="Holding">Holding</option>
-            <option value="Service">Service</option>
-            <option value="Annex">Annex</option>
-            <option value="AutoExpress">AutoExpress</option>
-            <option value="Outside Vendor">Outside Vendor</option>
-            <option value="Recon">Recon</option>
-            <option value="Detail">Detail</option>
-            <option value="Torro">Torro</option>
-            <option value="Front Line Ready">Front Line Ready</option>
-          </select> 
-          
-          <button onClick={()=> handleUpdate(vehicle_id)}>Update</button>
-        </td> */}
-          <td>
-         <button onClick={()=> handleDelete(vehicle_id, vehicle_stock)}>Delete</button>
-          </td>
-        </tr>))
-  
-  return(
-  <div>
-      <h2 className="section-title">Cars At {cut}</h2>
-      <table className="route-table">
-      <thead>
-      <tr>
-          <th>Dept</th>
-          <th>Stock</th>
-          <th>Year</th>
-          <th>Make</th>
-          <th>Model</th>
-          <th>UCM in</th>
-          <th>Current Date</th>
-          <th>Variance</th>
-          <th>Notes</th>
-          <th>Send To</th>
-          <th>Delete</th>
-      </tr>
-      </thead>
-      <tbody> {rows}
-      </tbody>
-  
-  </table>   
-  </div>
-  )
-  
-  }
-  
-  export default List;
+// Components
+import Dropdown from "../Dropdown";
+import { parseDate, dateDifference } from "../../utils";
+
+const currentDate = new Date();
+
+const List = ({
+  title,
+  data,
+  depts,
+  handleChange,
+  handleDelete,
+  handleUpdate,
+  buttonName,
+  selectedCar
+}) => {
+    return (
+      <>
+        <h2 className="section-title">Cars At {title}</h2>
+        <table className="route-table">
+          <thead>
+            <tr>
+              <th>Dept</th>
+              <th>Stock</th>
+              <th>Year</th>
+              <th>Make</th>
+              <th>Model</th>
+              <th>UCM IN</th>
+              <th>Current Date</th>
+              <th>Days</th>
+              <th>Notes</th>
+              <th>Send To</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data && data.map((ele, idx) => (
+              <tr key={idx}>
+                <td>{ele.name}</td>
+                <td>{ele.stock}</td>
+                <td>{ele.year}</td>
+                <td>{ele.make}</td>
+                <td>{ele.model}</td>
+                <td>{parseDate(ele.date_in)}</td>
+                <td>{parseDate(currentDate)}</td>
+                <td>{dateDifference(currentDate, ele.date_in)}</td>
+                <td>{ele.notes}</td>
+                <td><Dropdown button options={depts} handleChange={(e) =>handleChange(e, ele)} handleUpdate={handleUpdate} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true}/></td>
+                <td><button onClick={() => handleDelete(ele)}>Delete</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
+    )
+}
+
+export default List;

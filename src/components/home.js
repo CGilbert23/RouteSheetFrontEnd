@@ -1,158 +1,152 @@
-import { useState, useEffect} from 'react';
-import useFetch from '../components/fetch'
-import List from "./helper/list"
-import Intro from "./tables/Intro"
-import SummaryTable from "./forms/summaryTable"
-import NewVehicleForm from "./forms/form"
-import SearchForm from "./forms/searchForm"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addVehicles, deleteVehicles, getVehicles, updateVehicles } from "../redux/actions/vehicles";
+import { getDepts } from "../redux/actions/depts";
+import List from "./helper/list";
+import Intro from "./tables/Intro";
+import SummaryTable from "./forms/summaryTable";
+import NewVehicleForm from "./forms/form";
+import SearchForm from "./forms/searchForm";
+import { isAuth } from "../redux/actions/login";
 
+const initialForm = {
+  vehicle_id: '',
+  dept_id: '',
+  name: '',
+  stock: '',
+  year: '',
+  make: '',
+  model: '',
+  date_in: '',
+  created_at: '',
+  variant: '',
+  notes: ''
+}
 
 const Home = () => {
+  const currentDate = new Date().toISOString();
+  const [formData, setFormData] = useState(initialForm);
+  const [selectedDept, setSelectedDept] = useState(null);
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [showAddForm, setShowAddForm] = useState(false)
+  const departments = useSelector(state => state.departments);
+  const vehicles = useSelector(state => state.vehicles);
+  const myState = useSelector((state) => state.loginReducer);
+  const dispatch = useDispatch();
 
-    /* date */
+  useEffect(() => {
+    dispatch(getVehicles())
+    dispatch(getDepts())
+  }, [dispatch])
 
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1
-    var yyyy = today.getFullYear();
-    var hr = today.getHours();
-    var mn = today.getMinutes();
-    var sc = today.getSeconds();
-    var ms = today.getUTCMilliseconds()
-    var time = today.getHours
-    if (dd<10){
-      dd='0'+ dd
-    }
-    if (mm<10){
-      mm='0' + mm
-    }
-    /*
-    const currentDate = `${mm}/${dd}/${yyyy}`
-   */
-  const currentDate=`${yyyy}-${mm}-${dd} T${hr}:${mn}:${sc}.${ms}Z`
   
-  /*State Management : All Exisitng Data */
-    const {data,setData,isPending,error} = useFetch(`http://localhost:5000/vehicles`)
+  const handleFormChange = (event) => {
+    const {name, value} = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
 
+  const handleSubmit = () => {
     
-    /*State Management: New Vehicle Form */
-    const initialFormState = {
-        vehicle_assignment:"",
-        vehicle_stock: "",
-        vehicle_year:"",
-        vehicle_make: "",
-        vehicle_model:"",
-        date_in: "",
-        current_date: currentDate,
-        notes:"",
-        
-      };
+    let cars = JSON.parse(JSON.stringify(vehicles.cars))
+    formData["name"] = departments.depts.find((val) => val.dept_id === formData.dept_id).name
+    cars.push(formData)
+    dispatch(addVehicles(cars))
+
+  }
+
+  const handleOptionsChange = (event, selectedCar) => {
+    const value = event.target.value;
+    if(value){
+      setSelectedDept(event.target.value);
+      setSelectedCar(selectedCar);
+    }else{
+      setSelectedDept(null);
+      setSelectedCar(null);
+    }
+  }
+
+  // const getDeptName = (dept_id) => {
+  //   const myDept = departments.depts && departments.depts.find(ele => ele.dept_id === dept_id);
+  //   return myDept.name;
+  // }
+
+  const handleUpdate = () => {
+    // const copyOfCars = JSON.parse(JSON.stringify(vehicles.cars));
+    // const updatedCars = copyOfCars.map((ele) => {
+    //   let changedCar = ele.vehicle_id === selectedCar.vehicle_id;
+    //   return {
+    //     ...ele,
+    //     dept_id: changedCar ? selectedDept : ele.dept_id,
+    //     assignment: changedCar ? getDeptName(selectedDept) : ele.assignment 
+    //   }
+    // })
+    dispatch(updateVehicles(selectedCar.vehicle_id, selectedDept))
+  }
+
+  const parseData = (cars, dept_id) => {
+    return cars && cars.filter(car => car.dept_id === dept_id);
+  }
+
+  const handleDelete = (ele) => {
+    const pendingVehicles = vehicles.cars.filter((val) => val.vehicle_id !== ele.vehicle_id)
+    dispatch(deleteVehicles(pendingVehicles))
+  }
+
+  const handleAddVehicle = () => {
+    setShowAddForm(!showAddForm)
+  }
+
+  const handleLogOut = () => {
+    dispatch(isAuth(false));
+  }
+
+  return (
+    <>
+    <div className="logout-btn">
+      <button onClick={handleLogOut}>Logout</button>
+      </div>
+      <Intro currentDate={currentDate} />
       
-      /*POST: New Vehicle Form */
-      const [formData, setFormData] = useState({ ...initialFormState });
-      
-      const handleChange = ({ target }) => {
-        setFormData({...formData, [target.name]: target.value });
-      };
-
-      const newCar = (updatedTable) => {
-        console.log(data)
-      }
-
-      const confirmpost = (newVehicle)=> {
-        setData([...data,newVehicle])
-      }
-    
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const newVehicle = (formData)
-        console.log(newVehicle)
-        const url = "http://localhost:5000/vehicles"
-        const requestOptions = {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(newVehicle)
-        }
-        fetch(url, requestOptions)
-          .then((response)=> response.json())
-          .then((newVehicle)=> confirmpost(newVehicle))
-          .then(response => console.log('Updated Successfully'))
-          .catch(error => console.log('Form submit error', error))
-          .then(() => newCar(newVehicle))
-        
-      
-        setFormData({ ...initialFormState });
-        
-      };
-
-      /* Delete A Vehicle */
-
-      const deleteCar = (id) => {
-        const table = data.filter((item)=> item.vehicle_id != id)
-        setData(table)
-      }
-     
-
-      const handleDelete = (id,stock) => {
-        fetch(`http://localhost:5000/vehicles/${id}`, {
-          method: 'DELETE'
-        })
-        .then(response => console.log("Deleted Car"))
-        .then(()=> deleteCar(id))
-       
-    }
-
-    
-    /* Update A Vehicle */
-
-    const [update, setUpdate] = useState("")
-
-    const handleChange2 = ({target}) => {
-      setUpdate(target.value)
-      console.log(update)
-    }
-
-    /*must define updateVehicle*/
-    const find = (updatedVehicle) => {
-      console.log(updatedVehicle)
-    const index = data.findIndex((item)=> item.vehicle_id === updatedVehicle.data.vehicle_id);
-    if (index !== -1){
-        data.splice(index,1,updatedVehicle);
-       
-    }
-}
-
-    const handleUpdate = (id) => {
-        fetch(`http://localhost:5000/vehicles/${id}`, {
-          method: 'PUT',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({vehicle_assignment: update})
-        })
-        .then(response => response.json())
-        .then(updatedVehicle => find(updatedVehicle))
-    }
-    
-return (
-    <div>
-        <Intro currentDate ={currentDate}/>
-        <SummaryTable />
-        <NewVehicleForm formData = {formData} setFormData = {setFormData} handleChange ={handleChange} handleSubmit={handleSubmit}/>
+      <div className="flex-center">
         <SearchForm />
-        <List data={data} cut={"Holding"} update= {update} handleChange2={handleChange2} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Service"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Annex"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"AutoExpress"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Outside Vendor"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Recon"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Detail"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Torro"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-        <List data={data} cut={"Front Line Ready"} isPending={isPending} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-
-    </div>
-)
-
-
+       
+      </div>
+      <div className="add-vehicle">
+      <button onClick={handleAddVehicle}>Add Vehicle</button>
+      </div>
+      <SummaryTable />
+      {showAddForm ?  <NewVehicleForm 
+        formData={formData} 
+        depts={departments.depts} 
+        setFormData={setFormData} 
+        handleChange={handleFormChange} 
+        handleSubmit={handleSubmit} 
+        /> : null}
+     
+      {
+        !vehicles.loading ?
+          departments && departments.depts && departments.depts.map((ele, idx) => (
+            <div key={idx}>
+              <List 
+              title={ele.name} 
+              data={parseData(vehicles.cars, ele.dept_id)} 
+              depts={departments.depts} 
+              handleChange={handleOptionsChange} 
+              handleUpdate={handleUpdate} 
+              handleDelete={handleDelete}
+              selectedCar={selectedCar} 
+              button
+              />
+            </div>
+          ))
+        :
+        <div className="loading">Loading</div>
+      }
+    </>
+  )
 }
-
 
 export default Home;

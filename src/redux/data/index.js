@@ -1,0 +1,180 @@
+export const depts = [
+    {
+        dept_id: '1',
+        name: "Holding",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '2',
+        name: "Service",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '3',
+        name: "Annex",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '4',
+        name: "AutoExpress",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '5',
+        name: "Outside Vendor",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '6',
+        name: "Detail",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '7',
+        name: "Recon",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '8',
+        name: "Torro",
+        created_at: "2021-10-26T00:00:00.000Z",
+    },
+    {
+        dept_id: '9',
+        name: "Frontline Ready",
+        created_at: "2021-10-26T00:00:00.000Z",
+    }
+]
+
+export const vehicles = [
+    {
+        vehicle_id: '1',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10410",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '2',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10411",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '3',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10412",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '4',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10413",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '5',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10414",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '6',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10415",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '7',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10416",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '8',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10417",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '9',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10418",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+    {
+        vehicle_id: '10',
+        dept_id: '3',
+        name: "Annex",
+        stock: "F10419",
+        year: 2018,
+        make: "Ford",
+        model: "Ranger",
+        date_in: "2021-10-26T00:00:00.000Z",
+        created_at: "2021-10-26T00:00:00.000Z",
+        variant: "Test",
+        notes:"Out with driver"
+    },
+]

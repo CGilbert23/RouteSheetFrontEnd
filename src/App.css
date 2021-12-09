@@ -1,180 +1,264 @@
-
 /*Header*/
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-
-.Body{
-  width: 1400px;
+.Body {
+  width: 1440px;
   height: 100%;
   margin: 24px;
-  padding: 0px;
+  padding: 24px;
   border: 1px solid navy;
   font-family: Verdana, Arial, Helvetica, sans-serif;
   background: #98A9EA;
-  font-size: 13px;;
+  font-size: 16px;
 }
 
-.main{
-display: flex;
-padding-top: 20px;
-justify-content: center;
+.main {
+  display: flex;
+  padding-top: 20px;
+  justify-content: center;
 }
 
-.page-header{
-width: 900px;
-display: flex;
-flex-direction: column;
-background-color:white;
-border: solid 1px black;
+.page-header {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: solid 1px black;
 }
 
-.date{
-display: flex;
-justify-content: flex-start;
-font-size: 12px;
-padding-left: 5px;
+.date {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 12px;
+  padding-left: 5px;
 
 }
 
-.store-name{
-display: flex;
-font-size: x-large;
-justify-content: center;
-margin-bottom: 0px;
+.store-name {
+  display: flex;
+  font-size: x-large;
+  justify-content: center;
+  margin-bottom: 0px;
 }
 
-.page-description{
-display: flex;
-justify-content: center;
-font-size: small;
+.page-description {
+  display: flex;
+  justify-content: center;
+  font-size: small;
 }
-
 
 /*Rolling Average Table*/
-
-.summary-table{
-display: flex;
-justify-content: center;
-margin-top: 30px;
-margin-bottom: 30px;
-
+.summary-table {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.One{
-border: solid 1px black;
-border-spacing: 2px;
-background-color: white;
-;
+.One {
+  border: solid 1px black;
+  border-spacing: 2px;
+  background-color: white;
 }
 
-.green{
-text-align: center;
-background-color: #00FF00;
+.green {
+  text-align: center;
+  background-color: #00FF00;
 }
 
-.red{
-text-align: center;
-background-color: #EF1E1E;
+.red {
+  text-align: center;
+  background-color: #EF1E1E;
 }
 
 /* Vehicle entry form */
-.search-row{
-background-color: #98A9EA;
-padding-top: 20px;
-padding-bottom: 20px;
-padding-right: 0px;
-padding-left: 0px;
-font-weight: bold;
-color: black;
+.search-row {
+  background-color: #98A9EA;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: bold;
+  color: black;
 }
 
-.override{
-background-color: lightgray;
-
+.override {
+  background-color: lightgray;
 }
-
 
 /*Route Tables*/
-
-.section-title{
-Display: block;
-font-size: 1.5em;
-margin-block-start: 0.83em;
-margin-block-end: 0.83em;
-margin-inline-start: 0px;
-margin-inline-end: 0px;
-font-weight: bold;
-
-}
-
-table{
-border-collapse: separate;
-text-indent: initial;
-white-space: normal;
-line-height: normal;
-font-weight: normal;
-font-size: medium;
-font-style: normal;
-color: -internal-quirk-inherit;
-text-align: start;
-border-spacing: 2px;
-font-variant: normal;
-}
-
-.route-table{
-font-family: arial;
-background-color: #CDCDCD;
-margin: 10px 0pt 15px;
-font-size: 8pt;
-width: 100%;
-text-align: left;
-border: 1px;
-}
-
-thead{
-display: table-header-group;
-vertical-align: middle;
-border-color: inherit;
+.section-title {
+  Display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 
 }
 
-tr{
-display: table-row;
-vertical-align: inherit;
-border-color: inherit;
-border-collapse: collapse;
-font-size: 13px;
+table {
+  border-collapse: separate;
+  text-indent: initial;
+  white-space: normal;
+  line-height: normal;
+  font-weight: normal;
+  font-size: medium;
+  font-style: normal;
+  color: -internal-quirk-inherit;
+  text-align: start;
+  border-spacing: 2px;
+  font-variant: normal;
 }
 
-tbody{
+.route-table {
+  font-family: arial;
+  background-color: #CDCDCD;
+  margin: 10px 0pt 15px;
+  font-size: 8pt;
+  width: 100%;
+  text-align: left;
+  border: 1px;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+tbody {
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
-
 }
 
-th{
-display: table-cell;
-vertical-align: inherit;
-font-weight: bold;
-text-align: -internal-center;
-background-color: #e6EEEE;
-border: 1px solid #FFF;
-font-size: 8pt;
-padding: 4px;
-
+th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: -internal-center;
+  background-color: #e6EEEE;
+  border: 1px solid #FFF;
+  font-size: 8pt;
+  padding: 4px;
 }
 
-
-
-td{
-color: #3D3D3D;
-padding: 4px;
-background-color: #FFF;
-vertical-align: top;
-display: table-cell;
-border-collapse: collapse;
-font-size: 13px;
+td {
+  color: #3D3D3D;
+  padding: 4px;
+  background-color: #FFF;
+  vertical-align: top;
+  display: table-cell;
+  border-collapse: collapse;
+  font-size: 13px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+.loading:after {
+  content: ' .';
+  animation: dots 1s steps(5, end) infinite;
+}
 
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow:
+      .25em 0 0 rgba(0, 0, 0, 0),
+      .5em 0 0 rgba(0, 0, 0, 0)
+  }
+
+  40% {
+    color: rgb(0, 0, 0);
+    text-shadow:
+      .25em 0 0 rgba(0, 0, 0, 0),
+      .5em 0 0 rgba(0, 0, 0, 0)
+  }
+
+  60% {
+    text-shadow:
+      .25em 0 0 rgb(0, 0, 0),
+      .5em 0 0 rgb(0, 0, 0)
+  }
+
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 rgb(0, 0, 0),
+      .5em 0 0 rgb(0, 0, 0)
+  }
+}
+
+.search-vehicle {
+  width: 500px;
+  height: 20px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.add-vehicle {
+  display: flex;
+  justify-content: end;
+  margin-top: -24px;
+}
+
+.add-form {
+  display: flex;
+}
+
+.addform-input {
+  margin-right: 10px;
+}
+
+.submit-button {
+  height: 23px;
+  margin-top: 18px;
+}
+
+.logout-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Login Page */
+
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-container {
+  background: #98A9EA;
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
