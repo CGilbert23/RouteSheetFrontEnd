@@ -8,7 +8,6 @@ import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
 import { logOut } from "../redux/actions/login";
-import { parseISO } from "../utils";
 
 const initialForm = {
   dept_id: '',
@@ -28,17 +27,17 @@ const Home = () => {
   const departments = useSelector(state => state.departments);
   const vehicles = useSelector(state => state.vehicles);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getVehicles())
     dispatch(getDepts())
   }, [dispatch])
 
-
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: name === 'date_in' ? parseISO(value) : value
+      [name]: value
     })
   }
 

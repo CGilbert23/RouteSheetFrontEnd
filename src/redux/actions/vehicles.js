@@ -1,3 +1,4 @@
+import { parseISO } from "../../utils";
 import { GET, POST, FETCH_VEHICLES, GET_VEHICLES, SEARCH_VEHICLE, CLEAR_SEARCH, ADD_VEHICLES, DELETE_VEHICLES } from "../constants";
 import apiRequest from "../requests";
 
@@ -25,14 +26,17 @@ export const searchVehicles = (data, searchValue) => async (dispatch) => {
 }
 
 export const addVehicles = (data) => async (dispatch) => {
-     await apiRequest(POST, `vehicles`, data)
+    const payload = {
+        ...data,
+        "date_in": parseISO(data.date_in)
+    }
+     await apiRequest(POST, `vehicles`, payload)
      const res = await apiRequest(GET, `vehicles`)
     dispatch({type: ADD_VEHICLES, payload: res.data.vehicles})
 }
 
 export const deleteVehicles = (id) => async (dispatch) => {
-     await apiRequest(GET, `vehicles/${id}`)
+    await apiRequest(GET, `vehicles/${id}`)
     const res = await apiRequest(GET, `vehicles`)
-
     dispatch({ type: DELETE_VEHICLES, payload: res.data.vehicles })
 }
