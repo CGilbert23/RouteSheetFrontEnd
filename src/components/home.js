@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addVehicles, deleteVehicles, getVehicles, updateVehicles } from "../redux/actions/vehicles";
 import { getDepts } from "../redux/actions/depts";
@@ -31,7 +31,6 @@ const Home = () => {
   const [showAddForm, setShowAddForm] = useState(false)
   const departments = useSelector(state => state.departments);
   const vehicles = useSelector(state => state.vehicles);
-  const myState = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {

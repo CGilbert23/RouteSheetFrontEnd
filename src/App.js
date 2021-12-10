@@ -1,9 +1,7 @@
-import { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
+  Switch
 } from 'react-router-dom';
 import "./App.css"
 import PublicRoutes from "./PublicRoutes";

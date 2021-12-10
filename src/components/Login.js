@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { isAuth } from "../redux/actions/login";
 
 const Login = () => {
-  const myState = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   const initialForm = {
     email: "",

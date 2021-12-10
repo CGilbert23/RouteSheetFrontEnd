@@ -1,18 +1,19 @@
-import { FETCH_VEHICLES, GET_VEHICLES, SEARCH_VEHICLE, CLEAR_SEARCH, ADD_VEHICLES, DELETE_VEHICLES } from "../constants";
-import { vehicles } from "../data"
+import { GET, FETCH_VEHICLES, GET_VEHICLES, SEARCH_VEHICLE, CLEAR_SEARCH, ADD_VEHICLES, DELETE_VEHICLES } from "../constants";
+import apiRequest from "../requests";
+
 export const getVehicles = () => async (dispatch) => {
-    // const res = await apiRequest(GET, 'vehicles');
-    dispatch({ type: GET_VEHICLES, payload: vehicles })
+    const res = await apiRequest(GET, 'vehicles');
+    dispatch({ type: GET_VEHICLES, payload: res.data.vehicles })
 }
 
 export const updateVehicles = (vehicle_id, dept_id) => async (dispatch) => {
-    // await apiRequest(GET, `vehicles/${vehicle_id}/${dept_id}`);
+    await apiRequest(GET, `vehicles/${vehicle_id}/${dept_id}`);
     
     dispatch({ type: FETCH_VEHICLES });
 
     setTimeout(async() => {
-        // const res = await apiRequest(GET, 'vehicles');
-        dispatch({ type: GET_VEHICLES, payload: vehicles })
+        const res = await apiRequest(GET, 'vehicles');
+        dispatch({ type: GET_VEHICLES, payload: res.data.vehicles })
     }, 1000)
 }
 
