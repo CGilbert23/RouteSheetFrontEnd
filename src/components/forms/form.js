@@ -3,7 +3,14 @@ import React from "react";
 // Components
 import Dropdown from "../Dropdown";
 
+const handleDisable = (formData) => {
+    if(formData.dept_id && formData.stock && formData.year && formData.make && formData.model && formData.date_in) return false
+    else return true; 
+}
+
 const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSubmit, title }) => {
+
+  const checkDisable = handleDisable(formData)
 
   return (
     <div className="add-form">
@@ -29,7 +36,7 @@ const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSub
         <input type='hidden' id="created_at" name="created_at" onChange={handleChange} value={formData.created_at}></input>
       </label>
      
-      <button className="submit-button" onClick={handleSubmit} type='submit'>Submit</button>
+      <button className="submit-button" disabled={checkDisable} onClick={handleSubmit} type='submit'>Submit</button>
 
     </div>
   );

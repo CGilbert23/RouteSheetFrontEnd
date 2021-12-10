@@ -6,6 +6,9 @@ export const setToken = (token) => {
 
 export const getToken = () => {
     const token = cookie.load('accessToken') || null;
-    if(token === 'true') return true
-    else return false
+     return token  
+}
+
+export const removeToken = () => {
+    cookie.remove('accessToken')
 }

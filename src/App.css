@@ -261,4 +261,9 @@ td {
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
+  width: 190px;
+}
+
+.login-button {
+  width: 60px;
 }

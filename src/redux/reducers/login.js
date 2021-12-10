@@ -1,7 +1,6 @@
-import { LOGIN_SUCCESS } from "../constants";
-import { getToken } from "../services";
+import { LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants";
 
-const initialState = { isAuth: getToken()}
+const initialState = { isAuth: false, userInfo: null }
 
 const loginReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -10,8 +9,16 @@ const loginReducer = (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuth: payload
+                isAuth: true,
+                userInfo: payload
             }
+        case LOGIN_FAIL:
+        case LOGOUT_SUCCESS:
+            return {
+                ...state,
+                isAuth: false,
+                userInfo: null
+            } 
         default: return state
     }
 }

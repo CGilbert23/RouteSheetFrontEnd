@@ -7,7 +7,7 @@ import Intro from "./tables/Intro";
 import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
-import { isAuth } from "../redux/actions/login";
+import { logOut } from "../redux/actions/login";
 import { parseISO } from "../utils";
 
 const initialForm = {
@@ -76,7 +76,7 @@ const Home = () => {
   }
 
   const handleLogOut = () => {
-    dispatch(isAuth(false));
+    dispatch(logOut());
   }
 
   return (

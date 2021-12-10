@@ -19,12 +19,9 @@ const Login = () => {
     });
   };
 
-  const handleLogin = () => {
-    if((userDetails.email && userDetails.password) === ''){
-        dispatch(isAuth(false));
-    }else {
-        dispatch(isAuth(true));
-    }
+  const handleLogin = () => { 
+        dispatch(isAuth(userDetails));
+    
   };
 
   return (
@@ -46,10 +43,10 @@ const Login = () => {
             name="password"
             value={userDetails.password}
             onChange={handleInput}
-            type="text"
+            type="password"
           ></input>
         </label>
-        <button onClick={handleLogin}>Login</button>
+        <button className="login-button" onClick={handleLogin}>Login</button>
       </div>
     </div>
   );
