@@ -8,19 +8,15 @@ import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
 import { isAuth } from "../redux/actions/login";
+import { parseISO } from "../utils";
 
 const initialForm = {
-  vehicle_id: '',
   dept_id: '',
-  name: '',
   stock: '',
   year: '',
   make: '',
   model: '',
   date_in: '',
-  created_at: '',
-  variant: '',
-  notes: ''
 }
 
 const Home = () => {
@@ -32,56 +28,36 @@ const Home = () => {
   const departments = useSelector(state => state.departments);
   const vehicles = useSelector(state => state.vehicles);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getVehicles())
     dispatch(getDepts())
   }, [dispatch])
 
-  
+
   const handleFormChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: name === 'date_in' ? parseISO(value) : value
     })
   }
 
   const handleSubmit = () => {
-    
-    let cars = JSON.parse(JSON.stringify(vehicles.cars))
-    formData["name"] = departments.depts.find((val) => val.dept_id === formData.dept_id).name
-    cars.push(formData)
-    dispatch(addVehicles(cars))
-
+    dispatch(addVehicles(formData))
   }
 
   const handleOptionsChange = (event, selectedCar) => {
     const value = event.target.value;
-    if(value){
+    if (value) {
       setSelectedDept(event.target.value);
       setSelectedCar(selectedCar);
-    }else{
+    } else {
       setSelectedDept(null);
       setSelectedCar(null);
     }
   }
 
-  // const getDeptName = (dept_id) => {
-  //   const myDept = departments.depts && departments.depts.find(ele => ele.dept_id === dept_id);
-  //   return myDept.name;
-  // }
-
   const handleUpdate = () => {
-    // const copyOfCars = JSON.parse(JSON.stringify(vehicles.cars));
-    // const updatedCars = copyOfCars.map((ele) => {
-    //   let changedCar = ele.vehicle_id === selectedCar.vehicle_id;
-    //   return {
-    //     ...ele,
-    //     dept_id: changedCar ? selectedDept : ele.dept_id,
-    //     assignment: changedCar ? getDeptName(selectedDept) : ele.assignment 
-    //   }
-    // })
     dispatch(updateVehicles(selectedCar.vehicle_id, selectedDept))
   }
 
@@ -90,8 +66,9 @@ const Home = () => {
   }
 
   const handleDelete = (ele) => {
-    const pendingVehicles = vehicles.cars.filter((val) => val.vehicle_id !== ele.vehicle_id)
-    dispatch(deleteVehicles(pendingVehicles))
+    if (window.confirm("Are you sure you want to delete this vehicle!")) {
+      dispatch(deleteVehicles(ele.vehicle_id))
+    }
   }
 
   const handleAddVehicle = () => {
@@ -104,45 +81,45 @@ const Home = () => {
 
   return (
     <>
-    <div className="logout-btn">
-      <button onClick={handleLogOut}>Logout</button>
+      <div className="logout-btn">
+        <button onClick={handleLogOut}>Logout</button>
       </div>
       <Intro currentDate={currentDate} />
-      
+
       <div className="flex-center">
         <SearchForm />
-       
+
       </div>
       <div className="add-vehicle">
-      <button onClick={handleAddVehicle}>Add Vehicle</button>
+        <button onClick={handleAddVehicle}>Add Vehicle</button>
       </div>
       <SummaryTable />
-      {showAddForm ?  <NewVehicleForm 
-        formData={formData} 
-        depts={departments.depts} 
-        setFormData={setFormData} 
-        handleChange={handleFormChange} 
-        handleSubmit={handleSubmit} 
-        /> : null}
-     
+      {showAddForm ? <NewVehicleForm
+        formData={formData}
+        depts={departments.depts}
+        setFormData={setFormData}
+        handleChange={handleFormChange}
+        handleSubmit={handleSubmit}
+      /> : null}
+
       {
         !vehicles.loading ?
           departments && departments.depts && departments.depts.map((ele, idx) => (
             <div key={idx}>
-              <List 
-              title={ele.name} 
-              data={parseData(vehicles.cars, ele.dept_id)} 
-              depts={departments.depts} 
-              handleChange={handleOptionsChange} 
-              handleUpdate={handleUpdate} 
-              handleDelete={handleDelete}
-              selectedCar={selectedCar} 
-              button
+              <List
+                title={ele.name}
+                data={parseData(vehicles.cars, ele.dept_id)}
+                depts={departments.depts}
+                handleChange={handleOptionsChange}
+                handleUpdate={handleUpdate}
+                handleDelete={handleDelete}
+                selectedCar={selectedCar}
+                button
               />
             </div>
           ))
-        :
-        <div className="loading">Loading</div>
+          :
+          <div className="loading">Loading</div>
       }
     </>
   )

@@ -1,4 +1,4 @@
-import { GET, FETCH_VEHICLES, GET_VEHICLES, SEARCH_VEHICLE, CLEAR_SEARCH, ADD_VEHICLES, DELETE_VEHICLES } from "../constants";
+import { GET, POST, FETCH_VEHICLES, GET_VEHICLES, SEARCH_VEHICLE, CLEAR_SEARCH, ADD_VEHICLES, DELETE_VEHICLES } from "../constants";
 import apiRequest from "../requests";
 
 export const getVehicles = () => async (dispatch) => {
@@ -24,16 +24,15 @@ export const searchVehicles = (data, searchValue) => async (dispatch) => {
     else dispatch({ type: CLEAR_SEARCH });
 }
 
-export const addVehicles = (ele) => {
-    return {
-        type: ADD_VEHICLES,
-        payload: ele
-    }
+export const addVehicles = (data) => async (dispatch) => {
+     await apiRequest(POST, `vehicles`, data)
+     const res = await apiRequest(GET, `vehicles`)
+    dispatch({type: ADD_VEHICLES, payload: res.data.vehicles})
 }
 
-export const deleteVehicles = (ele) => {
-    return {
-        type: DELETE_VEHICLES,
-        payload: ele
-    }
+export const deleteVehicles = (id) => async (dispatch) => {
+     await apiRequest(GET, `vehicles/${id}`)
+    const res = await apiRequest(GET, `vehicles`)
+
+    dispatch({ type: DELETE_VEHICLES, payload: res.data.vehicles })
 }
