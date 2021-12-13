@@ -7,8 +7,8 @@ export const getVehicles = () => async (dispatch) => {
     dispatch({ type: GET_VEHICLES, payload: res.data.vehicles })
 }
 
-export const updateVehicles = (vehicle_id, dept_id) => async (dispatch) => {
-    await apiRequest(GET, `vehicles/${vehicle_id}/${dept_id}`);
+export const updateVehicles = (vehicle_id, from_dept_id, to_dept_id, count) => async (dispatch) => {
+    await apiRequest(GET, `vehicles/${vehicle_id}/${from_dept_id}/${to_dept_id}/${count}`);
     
     dispatch({ type: FETCH_VEHICLES });
 

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addVehicles, deleteVehicles, getVehicles, updateVehicles } from "../redux/actions/vehicles";
-import { getDepts } from "../redux/actions/depts";
+import { getDepts, getDeptsWithCounts } from "../redux/actions/depts";
 import List from "./helper/list";
 import Intro from "./tables/Intro";
 import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
 import { logOut } from "../redux/actions/login";
+import { dateDifference } from "../utils";
 
 const initialForm = {
   dept_id: '',
@@ -31,6 +32,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getVehicles())
     dispatch(getDepts())
+    dispatch(getDeptsWithCounts())
   }, [dispatch])
 
   const handleFormChange = (event) => {
@@ -42,7 +44,8 @@ const Home = () => {
   }
 
   const handleSubmit = () => {
-    dispatch(addVehicles(formData))
+    dispatch(addVehicles(formData));
+    setFormData(initialForm);
   }
 
   const handleOptionsChange = (event, selectedCar) => {
@@ -57,7 +60,8 @@ const Home = () => {
   }
 
   const handleUpdate = () => {
-    dispatch(updateVehicles(selectedCar.vehicle_id, selectedDept))
+    const count = dateDifference(currentDate, selectedCar.date_in);
+    dispatch(updateVehicles(selectedCar.vehicle_id, selectedCar.dept_id, selectedDept, count));
   }
 
   const parseData = (cars, dept_id) => {
@@ -83,16 +87,19 @@ const Home = () => {
       <div className="logout-btn">
         <button onClick={handleLogOut}>Logout</button>
       </div>
+
       <Intro currentDate={currentDate} />
 
       <div className="flex-center">
         <SearchForm />
-
       </div>
+
       <div className="add-vehicle">
         <button onClick={handleAddVehicle}>Add Vehicle</button>
       </div>
-      <SummaryTable />
+
+      <SummaryTable counts={departments.counts}/>
+
       {showAddForm ? <NewVehicleForm
         formData={formData}
         depts={departments.depts}

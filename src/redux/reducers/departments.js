@@ -1,15 +1,16 @@
-import { GET_DEPARTMENTS, DEPARTMENTS_FAIL } from "../constants";
+import { GET_DEPARTMENTS, DEPARTMENTS_FAIL, GET_DEPARTMENTS_WITH_COUNTS } from "../constants";
 
 const initialState = {
     loading: true,
     error: null,
-    depts: []
+    depts: [],
+    counts: [],
 }
 
 const departmentsReducer = (state = initialState, action = {}) => {
     const { type, payload } = action;
 
-    switch(type){
+    switch (type) {
         case GET_DEPARTMENTS:
             return {
                 ...state,
@@ -23,6 +24,13 @@ const departmentsReducer = (state = initialState, action = {}) => {
                 loading: false,
                 error: payload
             }
+
+        case GET_DEPARTMENTS_WITH_COUNTS:
+            return {
+                ...state,
+                counts: payload
+            }
+            
         default:
             return state;
     }

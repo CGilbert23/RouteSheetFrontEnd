@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const parseDate = (date) => {
-    return moment(date).format('LLL');
+    return moment(date).format('LL');
 }
 
 const parseISO = (date) => {

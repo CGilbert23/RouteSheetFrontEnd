@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+    "env-cmd": "^10.1.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-cookies": "^0.1.1",
@@ -20,9 +21,15 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "npm run start:dev",
+    "build": "npm run build:dev",
+    "test": "npm run test:dev",
+    "start:dev": "env-cmd -f ./config/.dev.env react-scripts start",
+    "build:dev": "env-cmd -f ./config/.dev.env react-scripts build",
+    "test:dev": "env-cmd -f ./config/.dev.env react-scripts test",
+    "start:prod": "env-cmd -f ./config/.prod.env react-scripts start",
+    "build:prod": "env-cmd -f ./config/.prod.env react-scripts build",
+    "test:prod": "env-cmd -f ./config/.prod.env react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
