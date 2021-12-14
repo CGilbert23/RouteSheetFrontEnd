@@ -35,6 +35,10 @@ const Home = () => {
     dispatch(getDeptsWithCounts())
   }, [dispatch])
 
+  useEffect(() => {
+    dispatch(getDeptsWithCounts())
+  },[dispatch, vehicles.cars])
+
   const handleFormChange = (event) => {
     const { name, value } = event.target;
     setFormData({
