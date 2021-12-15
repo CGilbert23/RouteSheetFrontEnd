@@ -8,6 +8,7 @@ import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Login from './components/Login';
+import Register from './components/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './redux/actions/login';
 
@@ -30,6 +31,13 @@ const App = () => {
             isAuthenticated={isAuthenticated}
           >
             <Login />
+          </PublicRoutes>
+
+          <PublicRoutes
+            path="/register"
+            isAuthenticated={isAuthenticated}
+          >
+            <Register />
           </PublicRoutes>
 
           <PrivateRoutes

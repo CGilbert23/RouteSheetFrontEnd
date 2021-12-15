@@ -50,6 +50,7 @@ const Home = () => {
   const handleSubmit = () => {
     dispatch(addVehicles(formData));
     setFormData(initialForm);
+    setShowAddForm(false);
   }
 
   const handleOptionsChange = (event, selectedCar) => {

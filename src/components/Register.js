@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { isAuth } from "../redux/actions/login";
+import { registerUser } from "../redux/actions/login";
 
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
+
   const initialForm = {
+    name: "",
     email: "",
     password: "",
   };
@@ -20,15 +22,23 @@ const Login = () => {
     });
   };
 
-  const handleLogin = () => { 
-        dispatch(isAuth(userDetails));
-    
+  const handleRegister = () => { 
+    dispatch(registerUser(userDetails));
   };
 
   return (
     <div className="login-container">
       <div className="login-page">
-        <h1>Login</h1>
+        <h1>Register</h1>
+        <label className="login-label">
+          Name:
+          <input
+            name="name"
+            value={userDetails.name}
+            onChange={handleInput}
+            type="text"
+          ></input>
+        </label>
         <label className="login-label">
           Email:
           <input
@@ -47,11 +57,11 @@ const Login = () => {
             type="password"
           ></input>
         </label>
-        <button className="login-button" onClick={handleLogin}>Login</button>
-        <Link to="/register" className="register-or-login-links">Don't have an account? Register Here</Link>
+        <button className="login-button" onClick={handleRegister}>Register</button>
+        <Link to="/login" className="register-or-login-links">Already account? Login Here</Link>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

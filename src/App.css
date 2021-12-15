@@ -264,6 +264,6 @@ td {
   width: 190px;
 }
 
-.login-button {
-  width: 60px;
+.register-or-login-links {
+  padding: 16px;
 }
