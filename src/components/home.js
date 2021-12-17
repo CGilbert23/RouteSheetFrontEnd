@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addVehicles, deleteVehicles, getVehicles, updateVehicles } from "../redux/actions/vehicles";
-import { getDepts, getDeptsWithCounts } from "../redux/actions/depts";
+import { addVehicles, deleteVehicles, getSummary, getVehicles, updateVehicles } from "../redux/actions/vehicles";
+import { getDepts } from "../redux/actions/depts";
 import List from "./helper/list";
 import Intro from "./tables/Intro";
 import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
 import { logOut } from "../redux/actions/login";
-import { dateDifference } from "../utils";
 
 const initialForm = {
   dept_id: '',
@@ -20,7 +19,6 @@ const initialForm = {
 }
 
 const Home = () => {
-  const currentDate = new Date().toISOString();
   const [formData, setFormData] = useState(initialForm);
   const [selectedDept, setSelectedDept] = useState(null);
   const [selectedCar, setSelectedCar] = useState(null);
@@ -32,12 +30,11 @@ const Home = () => {
   useEffect(() => {
     dispatch(getVehicles())
     dispatch(getDepts())
-    dispatch(getDeptsWithCounts())
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(getDeptsWithCounts())
-  },[dispatch, vehicles.cars])
+    if(departments.depts.length > 0 && vehicles.cars.length > 0) dispatch(getSummary(departments.depts, vehicles.cars));
+  },[dispatch, departments.depts, vehicles.cars])
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -65,8 +62,7 @@ const Home = () => {
   }
 
   const handleUpdate = () => {
-    const count = dateDifference(currentDate, selectedCar.date_in);
-    dispatch(updateVehicles(selectedCar.vehicle_id, selectedCar.dept_id, selectedDept, count));
+    dispatch(updateVehicles(selectedCar.vehicle_id, selectedDept));
   }
 
   const parseData = (cars, dept_id) => {
@@ -93,7 +89,7 @@ const Home = () => {
         <button onClick={handleLogOut}>Logout</button>
       </div>
 
-      <Intro currentDate={currentDate} />
+      <Intro />
 
       <div className="flex-center">
         <SearchForm />
@@ -103,7 +99,7 @@ const Home = () => {
         <button onClick={handleAddVehicle}>Add Vehicle</button>
       </div>
 
-      <SummaryTable counts={departments.counts}/>
+      <SummaryTable counts={vehicles.summary}/>
 
       {showAddForm ? <NewVehicleForm
         formData={formData}

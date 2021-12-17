@@ -2,9 +2,7 @@ import React from "react";
 
 // Components
 import Dropdown from "../Dropdown";
-import { parseDate, dateDifference } from "../../utils";
-
-const currentDate = new Date();
+import { currentDate, parseDate, dateDifference } from "../../utils";
 
 const List = ({
   title,
@@ -45,7 +43,7 @@ const List = ({
                 <td>{ele.model}</td>
                 <td>{parseDate(ele.date_in)}</td>
                 <td>{parseDate(currentDate)}</td>
-                <td>{dateDifference(currentDate, ele.date_in)}</td>
+                <td>{dateDifference(ele.date_in)}</td>
                 <td>{ele.notes}</td>
                 <td><Dropdown button options={depts} handleChange={(e) =>handleChange(e, ele)} handleUpdate={handleUpdate} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true}/></td>
                 <td><button onClick={() => handleDelete(ele)}>Delete</button></td>

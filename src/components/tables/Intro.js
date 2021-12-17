@@ -1,7 +1,7 @@
 import React from 'react';
-import { parseDate } from '../../utils';
+import { currentDate, parseDate } from '../../utils';
 
-const Intro = ({currentDate}) => {  
+const Intro = () => {  
     return (
       <div>
         <div className="main">

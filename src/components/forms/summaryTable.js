@@ -11,7 +11,7 @@ const SummaryTable = ({ counts }) => {
               {counts && counts.map((ele, idx) => 
                 <td key={idx} className={Number(ele.days) > count ? "red" : "green"}>
                   Days at {ele.name} <br></br>
-                  <h1>{ele.days || 0}</h1>
+                  <h1>{ele.days}</h1>
                 </td>
               )}
             </tr>
