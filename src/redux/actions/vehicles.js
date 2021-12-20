@@ -77,5 +77,7 @@ export const getCombineCounts = (vehicles, dept_id) => {
   }, []);
   const lengthOfResult = result.length;
   const average = result.reduce((a, b) => a + b, 0) / lengthOfResult;
-  return Math.round(average) || 0;
+  const value = average % 1 !== 0 ? average.toFixed(1) : average;
+  if(!isNaN(value)) return value;
+  else return 0;
 };

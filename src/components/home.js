@@ -33,7 +33,7 @@ const Home = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if(departments.depts.length > 0 && vehicles.cars.length > 0) dispatch(getSummary(departments.depts, vehicles.cars));
+    if(departments.depts.length > 0 && vehicles.cars.length >= 0) dispatch(getSummary(departments.depts, vehicles.cars));
   },[dispatch, departments.depts, vehicles.cars])
 
   const handleFormChange = (event) => {
