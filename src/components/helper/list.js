@@ -5,6 +5,7 @@ import Dropdown from "../Dropdown";
 import { currentDate, parseDate, dateDifference } from "../../utils";
 
 const List = ({
+  dept_id,
   title,
   data,
   depts,
@@ -46,7 +47,7 @@ const List = ({
                 <td>{parseDate(currentDate)}</td>
                 <td>{dateDifference(ele.date_in)}</td>
                 <td>{ele.notes}</td>
-                <td><Dropdown button options={depts} handleChange={(e) =>handleChange(e, ele)} handleUpdate={handleUpdate} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true}/></td>
+                <td><Dropdown button options={depts.filter(e => e.dept_id !== dept_id)} handleChange={(e) =>handleChange(e, ele)} handleUpdate={handleUpdate} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true}/></td>
                 <td><button onClick={() => handleDelete(ele)}>Delete</button></td>
               </tr>
             ))}

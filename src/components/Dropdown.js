@@ -9,7 +9,7 @@ const Dropdown = ({ options, handleChange, handleUpdate, disabled, button }) => 
                     <option key={idx} value={ele.dept_id}>{ele.name}</option>
                 )}
             </select>
-            {button ?  <button disabled={disabled} onClick={handleUpdate}>Update</button> : null }
+            {button ?  <button style={{ marginLeft: 8 }} disabled={disabled} onClick={handleUpdate}>Update</button> : null }
             
         </>
     )

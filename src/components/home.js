@@ -115,6 +115,7 @@ const Home = () => {
           departments && departments.depts && departments.depts.map((ele, idx) => (
             <div key={idx}>
               <List
+                dept_id={ele.dept_id}
                 title={ele.name}
                 data={parseData(vehicles.cars, ele.dept_id)}
                 depts={departments.depts}
