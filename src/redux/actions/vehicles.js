@@ -43,6 +43,7 @@ export const searchVehicles = (data, searchValue) => async (dispatch) => {
 export const addVehicles = (data) => async (dispatch) => {
   const payload = {
     ...data,
+    ucm_in: parseISO(data.ucm_in),
     date_in: parseISO(data.date_in),
   };
   await apiRequest(POST, `vehicles`, payload);
@@ -60,11 +61,13 @@ export const getSummary = (depts, vehicles) => async (dispatch) => {
   let result = [];
 
   for(let i=0; i<depts.length; i++) {
-    result.push({
-      dept_id: depts[i].dept_id,
-      name: depts[i].name,
-      days: getCombineCounts(vehicles, depts[i].dept_id)
-    })
+    if(depts[i].name !== 'Frontline Ready'){
+      result.push({
+        dept_id: depts[i].dept_id,
+        name: depts[i].name,
+        days: getCombineCounts(vehicles, depts[i].dept_id)
+      })
+    }
   }
 
   dispatch({ type: GET_SUMMARY, payload: result })

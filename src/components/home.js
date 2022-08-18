@@ -15,7 +15,8 @@ const initialForm = {
   year: '',
   make: '',
   model: '',
-  date_in: '',
+  ucm_in: '',
+  date_in: ''
 }
 
 const Home = () => {
@@ -121,7 +122,6 @@ const Home = () => {
                 handleUpdate={handleUpdate}
                 handleDelete={handleDelete}
                 selectedCar={selectedCar}
-                button
               />
             </div>
           ))

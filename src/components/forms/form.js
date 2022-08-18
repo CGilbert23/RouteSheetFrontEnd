@@ -29,7 +29,10 @@ const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSub
       <label className="addform-input" htmlFor="model">Model:
         <input type='text' id="model" name="model" onChange={handleChange} value={formData.model}></input>
       </label>
-      <label className="addform-input" htmlFor="date_in">UCM IN:
+      <label className="addform-input" htmlFor="ucm_in">UCM IN:
+        <input type='date' id="ucm_in" name="ucm_in" onChange={handleChange} value={formData.ucm_in}></input>
+      </label>
+      <label className="addform-input" htmlFor="date_in">Date In:
         <input type='date' id="date_in" name="date_in" onChange={handleChange} value={formData.date_in}></input>
       </label>
       <label className="addform-input" htmlFor="created_at">

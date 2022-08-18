@@ -11,7 +11,6 @@ const List = ({
   handleChange,
   handleDelete,
   handleUpdate,
-  buttonName,
   selectedCar
 }) => {
     return (
@@ -26,6 +25,7 @@ const List = ({
               <th>Make</th>
               <th>Model</th>
               <th>UCM IN</th>
+              <th>Date In</th>
               <th>Current Date</th>
               <th>Days</th>
               <th>Notes</th>
@@ -41,6 +41,7 @@ const List = ({
                 <td>{ele.year}</td>
                 <td>{ele.make}</td>
                 <td>{ele.model}</td>
+                <td>{parseDate(ele.ucm_in)}</td>
                 <td>{parseDate(ele.date_in)}</td>
                 <td>{parseDate(currentDate)}</td>
                 <td>{dateDifference(ele.date_in)}</td>
