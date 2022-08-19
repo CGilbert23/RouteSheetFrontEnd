@@ -1,6 +1,7 @@
 import { dateDifference, parseISO } from "../../utils";
 import {
   GET,
+  PUT,
   POST,
   FETCH_VEHICLES,
   GET_VEHICLES,
@@ -18,7 +19,11 @@ export const getVehicles = () => async (dispatch) => {
 };
 
 export const updateVehicles = (vehicle_id, to_dept_id) => async (dispatch) => {
-  await apiRequest(GET, `vehicles/${vehicle_id}/${to_dept_id}`);
+  const payload = {
+    vehicle_id, to_dept_id
+  }
+  
+  await apiRequest(PUT, `vehicles`, payload);
 
   dispatch({ type: FETCH_VEHICLES });
 
@@ -60,8 +65,8 @@ export const deleteVehicles = (id) => async (dispatch) => {
 export const getSummary = (depts, vehicles) => async (dispatch) => {
   let result = [];
 
-  for(let i=0; i<depts.length; i++) {
-    if(depts[i].name !== 'Frontline Ready'){
+  for (let i = 0; i < depts.length; i++) {
+    if (depts[i].name !== 'Frontline Ready') {
       result.push({
         dept_id: depts[i].dept_id,
         name: depts[i].name,
@@ -81,6 +86,6 @@ export const getCombineCounts = (vehicles, dept_id) => {
   const lengthOfResult = result.length;
   const average = result.reduce((a, b) => a + b, 0) / lengthOfResult;
   const value = average % 1 !== 0 ? average.toFixed(1) : average;
-  if(!isNaN(value)) return value;
+  if (!isNaN(value)) return value;
   else return 0;
 };
