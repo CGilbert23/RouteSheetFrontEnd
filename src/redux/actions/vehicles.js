@@ -62,20 +62,9 @@ export const deleteVehicles = (id) => async (dispatch) => {
   dispatch({ type: DELETE_VEHICLES, payload: res.data.vehicles });
 };
 
-export const getSummary = (depts, vehicles) => async (dispatch) => {
-  let result = [];
-
-  for (let i = 0; i < depts.length; i++) {
-    if (depts[i].name !== 'Frontline Ready') {
-      result.push({
-        dept_id: depts[i].dept_id,
-        name: depts[i].name,
-        days: getCombineCounts(vehicles, depts[i].dept_id)
-      })
-    }
-  }
-
-  dispatch({ type: GET_SUMMARY, payload: result })
+export const getSummary = () => async (dispatch) => {
+  const res = await apiRequest(GET, "summary");
+  dispatch({ type: GET_SUMMARY, payload: res.data.summary })
 };
 
 export const getCombineCounts = (vehicles, dept_id) => {
