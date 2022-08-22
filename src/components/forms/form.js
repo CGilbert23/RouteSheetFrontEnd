@@ -15,7 +15,7 @@ const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSub
   return (
     <div className="add-form">
       <label className="addform-input" htmlFor="assignment">Department:
-        <Dropdown options={depts} handleChange={handleChange} handleUpdate={handleUpdate} title={title}/>
+        <Dropdown name="dept_id" value={formData.dept_id} options={depts} handleChange={handleChange} handleUpdate={handleUpdate} title={title}/>
       </label>
       <label className="addform-input" htmlFor="stock">Stock:
         <input type='text' id="stock" name="stock" onChange={handleChange} value={formData.stock}></input>

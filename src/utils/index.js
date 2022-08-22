@@ -14,4 +14,8 @@ const dateDifference = (date_in) => {
     return moment(currentDate).diff(moment(date_in), 'days');
 }
 
-export { currentDate, parseDate, dateDifference, parseISO }
+const extractDept_id = (data) => {
+    return data && data.split("___")[1];
+}
+
+export { currentDate, parseDate, dateDifference, parseISO, extractDept_id }

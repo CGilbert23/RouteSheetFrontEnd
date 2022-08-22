@@ -45,6 +45,7 @@ export const addVehicles = (data) => async (dispatch) => {
     dispatch({ type: constants.ADD_VEHICLE_REQUEST });
     const payload = {
       ...data,
+      dept_id: utils.extractDept_id(data.dept_id),
       ucm_in: utils.parseISO(data.ucm_in),
       date_in: utils.parseISO(data.date_in),
     };

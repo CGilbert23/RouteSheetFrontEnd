@@ -8,6 +8,7 @@ import SummaryTable from "./forms/summaryTable";
 import NewVehicleForm from "./forms/form";
 import SearchForm from "./forms/searchForm";
 import { logOut } from "../redux/actions/login";
+import * as utils from "../utils";
 
 const initialForm = {
   dept_id: '',
@@ -21,8 +22,8 @@ const initialForm = {
 
 const Home = () => {
   const [formData, setFormData] = useState(initialForm);
-  const [selectedDept, setSelectedDept] = useState(null);
-  const [selectedCar, setSelectedCar] = useState(null);
+  const [selectedDept, setSelectedDept] = useState("");
+  const [selectedCar, setSelectedCar] = useState("");
   const [showAddForm, setShowAddForm] = useState(false)
   const departments = useSelector(state => state.depts);
   const vehicles = useSelector(state => state.vehicles);
@@ -36,7 +37,8 @@ const Home = () => {
 
   useEffect(() => {
     if(vehicles.refetch) {
-      setSelectedDept(null);
+      setSelectedDept("");
+      setSelectedCar("");
       dispatch(getVehicles("refetch"));
       dispatch(getSummary());
     }
@@ -62,13 +64,13 @@ const Home = () => {
       setSelectedDept(event.target.value);
       setSelectedCar(selectedCar);
     } else {
-      setSelectedDept(null);
-      setSelectedCar(null);
+      setSelectedDept("");
+      setSelectedCar("");
     }
   }
 
   const handleUpdate = (from_dept_id, days) => {
-    dispatch(updateVehicles(selectedCar.vehicle_id, from_dept_id, selectedDept, days));
+    dispatch(updateVehicles(selectedCar.vehicle_id, from_dept_id, utils.extractDept_id(selectedDept), days));
   }
 
   const parseData = (cars, dept_id) => {
@@ -138,6 +140,7 @@ const Home = () => {
                 handleUpdate={handleUpdate}
                 handleDelete={handleDelete}
                 selectedCar={selectedCar}
+                selectedDept={selectedDept}
               />
             </div>
           ))

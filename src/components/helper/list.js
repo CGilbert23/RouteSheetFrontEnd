@@ -12,7 +12,8 @@ const List = ({
   handleChange,
   handleDelete,
   handleUpdate,
-  selectedCar
+  selectedCar,
+  selectedDept
 }) => {
   return (
     <>
@@ -50,7 +51,7 @@ const List = ({
                 <td>{parseDate(currentDate)}</td>
                 <td>{days}</td>
                 <td>{ele.notes}</td>
-                <td><Dropdown button options={depts.filter(e => e.dept_id !== dept_id)} handleChange={(e) => handleChange(e, ele)} handleUpdate={() => handleUpdate(dept_id, days)} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true} /></td>
+                <td><Dropdown button options={depts.filter(e => e.dept_id !== dept_id)} name={`selectedDept_${ele.vehicle_id}`} value={selectedDept} handleChange={(e) => handleChange(e, ele)} handleUpdate={() => handleUpdate(dept_id, days)} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true} /></td>
                 <td><button onClick={() => handleDelete(ele)}>Delete</button></td>
               </tr>
             )
