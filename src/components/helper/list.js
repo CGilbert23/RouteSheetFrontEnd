@@ -14,28 +14,31 @@ const List = ({
   handleUpdate,
   selectedCar
 }) => {
-    return (
-      <>
-        <h2 className="section-title">Cars At {title}</h2>
-        <table className="route-table">
-          <thead>
-            <tr>
-              <th>Dept</th>
-              <th>Stock</th>
-              <th>Year</th>
-              <th>Make</th>
-              <th>Model</th>
-              <th>UCM IN</th>
-              <th>Date In</th>
-              <th>Current Date</th>
-              <th>Days</th>
-              <th>Notes</th>
-              <th>Send To</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data && data.map((ele, idx) => (
+  return (
+    <>
+      <h2 className="section-title">Cars At {title}</h2>
+      <table className="route-table">
+        <thead>
+          <tr>
+            <th>Dept</th>
+            <th>Stock</th>
+            <th>Year</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>UCM IN</th>
+            <th>Date In</th>
+            <th>Current Date</th>
+            <th>Days</th>
+            <th>Notes</th>
+            <th>Send To</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data && data.map((ele, idx) => {
+            const days = dateDifference(ele.date_in);
+
+            return (
               <tr key={idx}>
                 <td>{ele.name}</td>
                 <td>{ele.stock}</td>
@@ -45,16 +48,17 @@ const List = ({
                 <td>{parseDate(ele.ucm_in)}</td>
                 <td>{parseDate(ele.date_in)}</td>
                 <td>{parseDate(currentDate)}</td>
-                <td>{dateDifference(ele.date_in)}</td>
+                <td>{days}</td>
                 <td>{ele.notes}</td>
-                <td><Dropdown button options={depts.filter(e => e.dept_id !== dept_id)} handleChange={(e) =>handleChange(e, ele)} handleUpdate={handleUpdate} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true}/></td>
+                <td><Dropdown button options={depts.filter(e => e.dept_id !== dept_id)} handleChange={(e) => handleChange(e, ele)} handleUpdate={() => handleUpdate(dept_id, days)} disabled={selectedCar?.vehicle_id === ele.vehicle_id ? false : true} /></td>
                 <td><button onClick={() => handleDelete(ele)}>Delete</button></td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
-    )
+            )
+          })}
+        </tbody>
+      </table>
+    </>
+  )
 }
 
 export default List;

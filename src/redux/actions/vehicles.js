@@ -12,11 +12,14 @@ export const getVehicles = (type = "fresh") => async (dispatch) => {
   }
 };
 
-export const updateVehicles = (vehicle_id, to_dept_id) => async (dispatch) => {
+export const updateVehicles = (vehicle_id, from_dept_id, to_dept_id, days) => async (dispatch) => {
   try {
     dispatch({ type: constants.UPDATE_VEHICLE_REQUEST });
     const payload = {
-      vehicle_id, to_dept_id
+      vehicle_id, 
+      from_dept_id,
+      to_dept_id,
+      days
     }
     await apiRequest(constants.PUT, `vehicles`, payload);
     dispatch({ type: constants.UPDATE_VEHICLE_SUCCESS });

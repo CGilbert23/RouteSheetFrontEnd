@@ -36,6 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     if(vehicles.refetch) {
+      setSelectedDept(null);
       dispatch(getVehicles("refetch"));
       dispatch(getSummary());
     }
@@ -66,8 +67,8 @@ const Home = () => {
     }
   }
 
-  const handleUpdate = () => {
-    dispatch(updateVehicles(selectedCar.vehicle_id, selectedDept));
+  const handleUpdate = (from_dept_id, days) => {
+    dispatch(updateVehicles(selectedCar.vehicle_id, from_dept_id, selectedDept, days));
   }
 
   const parseData = (cars, dept_id) => {
