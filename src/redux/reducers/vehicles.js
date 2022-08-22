@@ -1,13 +1,4 @@
-import {
-  FETCH_VEHICLES,
-  GET_VEHICLES,
-  VEHICLES_FAIL,
-  SEARCH_VEHICLE,
-  CLEAR_SEARCH,
-  ADD_VEHICLES,
-  DELETE_VEHICLES,
-  GET_SUMMARY
-} from "../constants";
+import * as constants from "../constants";
 
 const initialState = {
   loading: true,
@@ -15,52 +6,62 @@ const initialState = {
   copyOfCars: [],
   cars: [],
   summary: [],
+  refetch: false
 };
 
 const vehiclesReducer = (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   switch (type) {
-    case FETCH_VEHICLES:
+    case constants.GET_VEHICLES_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case GET_VEHICLES:
+    case constants.GET_VEHICLES_SUCCESS:
       return {
         ...state,
         loading: false,
+        refetch: false,
         copyOfCars: payload,
         cars: payload,
       };
 
-    case VEHICLES_FAIL:
+    case constants.GET_VEHICLES_FAIL:
       return {
         ...state,
         loading: false,
+        refetch: false,
         error: payload,
       };
 
-    case SEARCH_VEHICLE:
-    case ADD_VEHICLES:
-    case DELETE_VEHICLES:
+    case constants.SEARCH_VEHICLE:
       return {
         ...state,
-        loading: false,
         cars: payload,
       };
 
-    case CLEAR_SEARCH:
+    case constants.CLEAR_SEARCH:
       return {
         ...state,
         cars: state.copyOfCars,
       };
 
-    case GET_SUMMARY:
+    case constants.GET_SUMMARY_SUCCESS:
       return {
         ...state,
-        summary: payload
+        summary: payload,
+        refetch: false,
+      }
+
+    case constants.RESET_SUMMARY_SUCCESS:
+    case constants.ADD_VEHICLE_SUCCESS:
+    case constants.UPDATE_VEHICLE_SUCCESS:
+    case constants.DELETE_VEHICLE_SUCCESS:
+      return {
+        ...state,
+        refetch: true
       }
 
     default:

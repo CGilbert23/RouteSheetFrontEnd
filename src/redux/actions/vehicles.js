@@ -1,36 +1,28 @@
-import { dateDifference, parseISO } from "../../utils";
-import {
-  GET,
-  PUT,
-  POST,
-  FETCH_VEHICLES,
-  GET_VEHICLES,
-  SEARCH_VEHICLE,
-  CLEAR_SEARCH,
-  ADD_VEHICLES,
-  DELETE_VEHICLES,
-  GET_SUMMARY
-} from "../constants";
+import * as utils from "../../utils";
+import * as constants from "../constants";
 import apiRequest from "../requests";
 
-export const getVehicles = () => async (dispatch) => {
-  const res = await apiRequest(GET, "vehicles");
-  dispatch({ type: GET_VEHICLES, payload: res.data.vehicles });
+export const getVehicles = (type = "fresh") => async (dispatch) => {
+  try {
+    if(type === "fresh") dispatch({ type: constants.GET_VEHICLES_REQUEST });
+    const res = await apiRequest(constants.GET, "vehicles");
+    dispatch({ type: constants.GET_VEHICLES_SUCCESS, payload: res.data.vehicles });
+  } catch (err) {
+    dispatch({ type: constants.GET_VEHICLES_FAIL, payload: err.response.data });
+  }
 };
 
 export const updateVehicles = (vehicle_id, to_dept_id) => async (dispatch) => {
-  const payload = {
-    vehicle_id, to_dept_id
+  try {
+    dispatch({ type: constants.UPDATE_VEHICLE_REQUEST });
+    const payload = {
+      vehicle_id, to_dept_id
+    }
+    await apiRequest(constants.PUT, `vehicles`, payload);
+    dispatch({ type: constants.UPDATE_VEHICLE_SUCCESS });
+  } catch (err) {
+    dispatch({ type: constants.UPDATE_VEHICLE_FAIL });
   }
-  
-  await apiRequest(PUT, `vehicles`, payload);
-
-  dispatch({ type: FETCH_VEHICLES });
-
-  setTimeout(async () => {
-    const res = await apiRequest(GET, "vehicles");
-    dispatch({ type: GET_VEHICLES, payload: res.data.vehicles });
-  }, 1000);
 };
 
 export const searchVehicles = (data, searchValue) => async (dispatch) => {
@@ -41,40 +33,51 @@ export const searchVehicles = (data, searchValue) => async (dispatch) => {
       ele.make.toUpperCase().includes(searchedValue) ||
       ele.model.toUpperCase().includes(searchedValue)
   );
-  if (searchedValue) dispatch({ type: SEARCH_VEHICLE, payload: result });
-  else dispatch({ type: CLEAR_SEARCH });
+  if (searchedValue) dispatch({ type: constants.SEARCH_VEHICLE, payload: result });
+  else dispatch({ type: constants.CLEAR_SEARCH });
 };
 
 export const addVehicles = (data) => async (dispatch) => {
-  const payload = {
-    ...data,
-    ucm_in: parseISO(data.ucm_in),
-    date_in: parseISO(data.date_in),
-  };
-  await apiRequest(POST, `vehicles`, payload);
-  const res = await apiRequest(GET, `vehicles`);
-  dispatch({ type: ADD_VEHICLES, payload: res.data.vehicles });
+  try {
+    dispatch({ type: constants.ADD_VEHICLE_REQUEST });
+    const payload = {
+      ...data,
+      ucm_in: utils.parseISO(data.ucm_in),
+      date_in: utils.parseISO(data.date_in),
+    };
+    await apiRequest(constants.POST, `vehicles`, payload);
+    dispatch({ type: constants.ADD_VEHICLE_SUCCESS });
+  } catch (err) {
+    dispatch({ type: constants.ADD_VEHICLE_FAIL, payload: err.response.data });
+  }
 };
 
 export const deleteVehicles = (id) => async (dispatch) => {
-  await apiRequest(GET, `vehicles/${id}`);
-  const res = await apiRequest(GET, `vehicles`);
-  dispatch({ type: DELETE_VEHICLES, payload: res.data.vehicles });
+  try {
+    dispatch({ type: constants.DELETE_VEHICLE_REQUEST });
+    await apiRequest(constants.DELETE, `vehicles/${id}`);
+    dispatch({ type: constants.DELETE_VEHICLE_SUCCESS });
+  } catch (err) {
+    dispatch({ type: constants.DELETE_VEHICLE_FAIL, payload: err.response.data });
+  }
 };
 
 export const getSummary = () => async (dispatch) => {
-  const res = await apiRequest(GET, "summary");
-  dispatch({ type: GET_SUMMARY, payload: res.data.summary })
+  try {
+    dispatch({ type: constants.GET_SUMMARY_REQUEST });
+    const res = await apiRequest(constants.GET, "summary");
+    dispatch({ type: constants.GET_SUMMARY_SUCCESS, payload: res.data.summary });
+  } catch (err) {
+    dispatch({ type: constants.GET_SUMMARY_FAIL, payload: err.response.data });
+  }
 };
 
-export const getCombineCounts = (vehicles, dept_id) => {
-  const result = vehicles.reduce((res, ele) => {
-    if (ele.dept_id === dept_id) res.push(dateDifference(ele.date_in));
-    return res;
-  }, []);
-  const lengthOfResult = result.length;
-  const average = result.reduce((a, b) => a + b, 0) / lengthOfResult;
-  const value = average % 1 !== 0 ? average.toFixed(1) : average;
-  if (!isNaN(value)) return value;
-  else return 0;
+export const resetSummary = () => async (dispatch) => {
+  try {
+    dispatch({ type: constants.RESET_SUMMARY_REQUEST });
+    await apiRequest(constants.GET, "summary/resetSummary");
+    dispatch({ type: constants.RESET_SUMMARY_SUCCESS });
+  } catch (err) {
+    dispatch({ type: constants.RESET_SUMMARY_FAIL });
+  }
 };

@@ -1,7 +1,4 @@
-import {
-  GET_DEPARTMENTS,
-  DEPARTMENTS_FAIL
-} from "../constants";
+import * as constants from "../constants";
 
 const initialState = {
   loading: true,
@@ -13,14 +10,20 @@ const departmentsReducer = (state = initialState, action = {}) => {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_DEPARTMENTS:
+    case constants.GET_DEPARTMENTS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+
+    case constants.GET_DEPARTMENTS_SUCCESS:
       return {
         ...state,
         loading: false,
         depts: payload,
       };
 
-    case DEPARTMENTS_FAIL:
+    case constants.GET_DEPARTMENTS_FAIL:
       return {
         ...state,
         loading: false,

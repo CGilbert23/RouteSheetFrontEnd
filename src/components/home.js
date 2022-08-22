@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addVehicles, deleteVehicles, getSummary, getVehicles, updateVehicles } from "../redux/actions/vehicles";
+import { addVehicles, deleteVehicles, getSummary, getVehicles, updateVehicles, resetSummary } from "../redux/actions/vehicles";
 import { getDepts } from "../redux/actions/depts";
 import List from "./helper/list";
 import Intro from "./tables/Intro";
@@ -24,18 +24,22 @@ const Home = () => {
   const [selectedDept, setSelectedDept] = useState(null);
   const [selectedCar, setSelectedCar] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false)
-  const departments = useSelector(state => state.departments);
+  const departments = useSelector(state => state.depts);
   const vehicles = useSelector(state => state.vehicles);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getVehicles())
-    dispatch(getDepts())
-  }, [dispatch])
+    dispatch(getVehicles());
+    dispatch(getDepts());
+    dispatch(getSummary());
+  }, [dispatch]);
 
   useEffect(() => {
-    if(departments.depts.length > 0 && vehicles.cars.length >= 0) dispatch(getSummary(departments.depts, vehicles.cars));
-  },[dispatch, departments.depts, vehicles.cars])
+    if(vehicles.refetch) {
+      dispatch(getVehicles("refetch"));
+      dispatch(getSummary());
+    }
+  }, [vehicles.refetch, dispatch])
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -76,6 +80,12 @@ const Home = () => {
     }
   }
 
+  const handleResetSummary = (ele) => {
+    if (window.confirm("Are you sure you want to reset summary!")) {
+      dispatch(resetSummary())
+    }
+  }
+
   const handleAddVehicle = () => {
     setShowAddForm(!showAddForm)
   }
@@ -91,6 +101,10 @@ const Home = () => {
       </div>
 
       <Intro />
+
+      <div className="flex-center">
+        <button onClick={handleResetSummary}>Reset Summary</button>
+      </div>
 
       <div className="flex-center">
         <SearchForm />

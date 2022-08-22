@@ -14,9 +14,10 @@ import { getUser } from './redux/actions/login';
 
 const App = () => {
 
-  const myState = useSelector((state) => state)
+  const login = useSelector((state) => state.login)
   const dispatch = useDispatch();
-  const isAuthenticated = myState.loginReducer.isAuth;
+  
+  const isAuthenticated = login.isAuth;
 
   useEffect(() => {
     dispatch(getUser())

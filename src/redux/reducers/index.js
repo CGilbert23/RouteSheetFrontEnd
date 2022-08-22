@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import departments from "./departments";
+import depts from "./depts";
 import vehicles from "./vehicles";
-import loginReducer from "./login";
+import login from "./login";
 
-export default combineReducers({ departments, vehicles, loginReducer });
+export default combineReducers({ depts, vehicles, login });
