@@ -55,7 +55,6 @@ const vehiclesReducer = (state = initialState, action = {}) => {
         refetch: false,
       }
 
-    case constants.RESET_SUMMARY_SUCCESS:
     case constants.ADD_VEHICLE_SUCCESS:
     case constants.UPDATE_VEHICLE_SUCCESS:
     case constants.DELETE_VEHICLE_SUCCESS:

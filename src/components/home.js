@@ -69,8 +69,8 @@ const Home = () => {
     }
   }
 
-  const handleUpdate = (from_dept_id, days) => {
-    dispatch(updateVehicles(selectedCar.vehicle_id, from_dept_id, utils.extractDept_id(selectedDept), days));
+  const handleUpdate = (summary_id, days) => {
+    dispatch(updateVehicles(selectedCar.vehicle_id, summary_id, utils.extractDept_id(selectedDept), days));
   }
 
   const parseData = (cars, dept_id) => {
@@ -80,12 +80,6 @@ const Home = () => {
   const handleDelete = (ele) => {
     if (window.confirm("Are you sure you want to delete this vehicle!")) {
       dispatch(deleteVehicles(ele.vehicle_id))
-    }
-  }
-
-  const handleResetSummary = (ele) => {
-    if (window.confirm("Are you sure you want to reset summary!")) {
-      dispatch(resetSummary())
     }
   }
 
@@ -104,10 +98,6 @@ const Home = () => {
       </div>
 
       <Intro />
-
-      <div className="flex-center">
-        <button onClick={handleResetSummary}>Reset Summary</button>
-      </div>
 
       <div className="flex-center">
         <SearchForm />

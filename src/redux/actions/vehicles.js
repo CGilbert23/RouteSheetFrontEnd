@@ -12,12 +12,12 @@ export const getVehicles = (type = "fresh") => async (dispatch) => {
   }
 };
 
-export const updateVehicles = (vehicle_id, from_dept_id, to_dept_id, days) => async (dispatch) => {
+export const updateVehicles = (vehicle_id, summary_id, to_dept_id, days) => async (dispatch) => {
   try {
     dispatch({ type: constants.UPDATE_VEHICLE_REQUEST });
     const payload = {
       vehicle_id, 
-      from_dept_id,
+      summary_id,
       to_dept_id,
       days
     }
@@ -73,15 +73,5 @@ export const getSummary = () => async (dispatch) => {
     dispatch({ type: constants.GET_SUMMARY_SUCCESS, payload: res.data.summary });
   } catch (err) {
     dispatch({ type: constants.GET_SUMMARY_FAIL, payload: err.response.data });
-  }
-};
-
-export const resetSummary = () => async (dispatch) => {
-  try {
-    dispatch({ type: constants.RESET_SUMMARY_REQUEST });
-    await apiRequest(constants.GET, "summary/resetSummary");
-    dispatch({ type: constants.RESET_SUMMARY_SUCCESS });
-  } catch (err) {
-    dispatch({ type: constants.RESET_SUMMARY_FAIL });
   }
 };
