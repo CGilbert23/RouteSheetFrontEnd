@@ -37,7 +37,11 @@ const List = ({
         </thead>
         <tbody>
           {data && data.map((ele, idx) => {
-            const days = dateDifference(ele.date_in);
+            var days = dateDifference(ele.date_in);
+
+            if (ele.name == 'Frontline Ready'){
+                days = ele.days;
+            }
 
             return (
               <tr key={idx}>
