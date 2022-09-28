@@ -19,7 +19,8 @@ export const updateVehicles = (vehicle_id, summary_id, to_dept_id, days) => asyn
       vehicle_id, 
       summary_id,
       to_dept_id,
-      days
+      days,
+      current_date : utils.currentDate
     }
     await apiRequest(constants.PUT, `vehicles`, payload);
     dispatch({ type: constants.UPDATE_VEHICLE_SUCCESS });
