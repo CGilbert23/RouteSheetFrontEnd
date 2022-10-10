@@ -17,7 +17,8 @@ const initialForm = {
   make: '',
   model: '',
   ucm_in: '',
-  date_in: ''
+  date_in: '',
+  notes:'' 
 }
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
   const [selectedDept, setSelectedDept] = useState("");
   const [selectedCar, setSelectedCar] = useState("");
   const [showAddForm, setShowAddForm] = useState(false)
+
   const departments = useSelector(state => state.depts);
   const vehicles = useSelector(state => state.vehicles);
   const dispatch = useDispatch();
@@ -53,11 +55,18 @@ const Home = () => {
   }
 
   const handleSubmit = () => {
+   
     dispatch(addVehicles(formData));
     setFormData(initialForm);
     setShowAddForm(false);
+  
   }
 
+
+  const handleCancel=()=>{
+    setShowAddForm(false);
+  
+  }
   const handleOptionsChange = (event, selectedCar) => {
     const value = event.target.value;
     if (value) {
@@ -85,6 +94,7 @@ const Home = () => {
 
   const handleAddVehicle = () => {
     setShowAddForm(!showAddForm)
+   
   }
 
   const handleLogOut = () => {
@@ -115,6 +125,7 @@ const Home = () => {
         setFormData={setFormData}
         handleChange={handleFormChange}
         handleSubmit={handleSubmit}
+        handleCancel={handleCancel}
       /> : null}
 
       {

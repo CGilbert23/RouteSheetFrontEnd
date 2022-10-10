@@ -225,10 +225,6 @@ td {
   margin-top: -24px;
 }
 
-.add-form {
-  display: flex;
-}
-
 .addform-input {
   margin-right: 10px;
 }
@@ -266,4 +262,114 @@ td {
 
 .register-or-login-links {
   padding: 16px;
+}
+
+.add-form .disperss label.addform-input {
+  max-width: 100%;
+}
+.add-form label.addform-input {
+  width: 100%;
+  display: block;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+.add-form label.addform-input select#dept_id {
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  padding: 0 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+}
+.add-form .disperss label.addform-input {
+  max-width: calc(33.33% - 10px);
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.add-form .disperss label.addform-input input {
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-top: 5px;
+  padding: 0 10px;
+}
+.add-form label.addform-input.msg-box {
+  float: none;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.add-form label.addform-input.msg-box textarea {
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-top: 5px;
+  padding: 10px;
+}
+.add-form button.submit-button {
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  color: #fff;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: #000;
+  border: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 3px;
+}
+.add-form button.submit-button:hover {
+  background: rgb(0 0 0 / 70%);
+  box-shadow: 0 7px 10px #5b5b5b;
+}
+.actionbtn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.add-form button.submit-button.cancel {
+  background: #474747;
+}
+
+
+.notes {
+  position: relative;
+  width: 410px;
+}
+.notes p {
+  max-width: 410px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.notes .tooltiptext {
+  display: none;
+  width: 400px;
+  color: #fff;
+  background-color: rgb(11 11 11 / 96%);
+  text-align: left;
+  border-radius: 3px;
+  padding: 7px 10px;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  word-break: break-all;
+  top: 30px;
+  max-width: 100%;
+}
+
+.notes:hover .tooltiptext {
+  display: block;
 }
