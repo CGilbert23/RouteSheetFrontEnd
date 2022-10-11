@@ -54,7 +54,8 @@ const List = ({
                 <td>{parseDate(ele.date_in)}</td>
                 <td>{parseDate(currentDate)}</td>
                 <td>{days}</td>
-              
+
+                
                 <td className="notes"><p>{ele.notes ? ele.notes : 'NA'} </p>
                 <span className="tooltiptext">{ele.notes ? ele.notes : 'NA'}</span>
                 </td>
