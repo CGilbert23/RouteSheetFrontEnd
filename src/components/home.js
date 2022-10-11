@@ -28,7 +28,6 @@ const Home = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showAddBtn , setShowAddBtn] = useState(true);
 
-
   const departments = useSelector(state => state.depts);
   const vehicles = useSelector(state => state.vehicles);
   const dispatch = useDispatch();
@@ -116,8 +115,7 @@ const Home = () => {
       </div>
 
       <div className="add-vehicle">
-      {showAddBtn? <button onClick={handleAddVehicle}>Add Vehicle</button>:null
-}
+      {showAddBtn ? <button onClick={handleAddVehicle}>Add Vehicle</button> : null}
       </div>
 
       <SummaryTable counts={vehicles.summary}/>
