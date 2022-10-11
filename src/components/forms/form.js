@@ -41,7 +41,7 @@ const NewVehicleForm = ({ depts, formData, handleChange, handleUpdate, handleSub
         <input type='hidden' id="created_at" name="created_at" onChange={handleChange} value={formData.created_at}></input>
       </label> */}
       <label className="addform-input msg-box" htmlFor="notes">Notes:
-        <textarea placeholder="you can type only 500 words." type='text' maxlength="500" id="notes" name="notes" onChange={handleChange} value={formData.notes}></textarea>
+        <textarea placeholder="you can type only 500 words." type='text' maxLength="500" id="notes" name="notes" onChange={handleChange} value={formData.notes}></textarea>
       </label>
       <div className="actionbtn">
         <button className="submit-button" disabled={checkDisable} onClick={handleSubmit} type='submit'>Submit</button>

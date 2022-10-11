@@ -25,7 +25,9 @@ const Home = () => {
   const [formData, setFormData] = useState(initialForm);
   const [selectedDept, setSelectedDept] = useState("");
   const [selectedCar, setSelectedCar] = useState("");
-  const [showAddForm, setShowAddForm] = useState(false)
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showAddBtn , setShowAddBtn] = useState(true);
+
 
   const departments = useSelector(state => state.depts);
   const vehicles = useSelector(state => state.vehicles);
@@ -55,18 +57,18 @@ const Home = () => {
   }
 
   const handleSubmit = () => {
-   
     dispatch(addVehicles(formData));
     setFormData(initialForm);
     setShowAddForm(false);
-  
+    setShowAddBtn(true);
   }
 
 
   const handleCancel=()=>{
     setShowAddForm(false);
-  
+    setShowAddBtn(true);
   }
+  
   const handleOptionsChange = (event, selectedCar) => {
     const value = event.target.value;
     if (value) {
@@ -94,7 +96,7 @@ const Home = () => {
 
   const handleAddVehicle = () => {
     setShowAddForm(!showAddForm)
-   
+    setShowAddBtn(!showAddBtn);
   }
 
   const handleLogOut = () => {
@@ -114,7 +116,8 @@ const Home = () => {
       </div>
 
       <div className="add-vehicle">
-        <button onClick={handleAddVehicle}>Add Vehicle</button>
+      {showAddBtn? <button onClick={handleAddVehicle}>Add Vehicle</button>:null
+}
       </div>
 
       <SummaryTable counts={vehicles.summary}/>

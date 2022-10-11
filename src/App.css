@@ -267,12 +267,14 @@ td {
 .add-form .disperss label.addform-input {
   max-width: 100%;
 }
+
 .add-form label.addform-input {
   width: 100%;
   display: block;
   max-width: 600px;
   margin: 0 auto 20px;
 }
+
 .add-form label.addform-input select#dept_id {
   width: 100%;
   height: 50px;
@@ -283,6 +285,7 @@ td {
   border-radius: 3px;
   background: #fff;
 }
+
 .add-form .disperss label.addform-input {
   max-width: calc(33.33% - 10px);
   float: left;
@@ -291,6 +294,7 @@ td {
   display: flex;
   flex-direction: column;
 }
+
 .add-form .disperss label.addform-input input {
   height: 40px;
   border: 1px solid #ccc;
@@ -298,12 +302,14 @@ td {
   margin-top: 5px;
   padding: 0 10px;
 }
+
 .add-form label.addform-input.msg-box {
   float: none;
   max-width: 100%;
   display: flex;
   flex-direction: column;
 }
+
 .add-form label.addform-input.msg-box textarea {
   height: 100px;
   border: 1px solid #ccc;
@@ -311,6 +317,7 @@ td {
   margin-top: 5px;
   padding: 10px;
 }
+
 .add-form button.submit-button {
   width: 200px;
   height: 40px;
@@ -328,24 +335,27 @@ td {
   font-weight: 600;
   border-radius: 3px;
 }
+
 .add-form button.submit-button:hover {
   background: rgb(0 0 0 / 70%);
   box-shadow: 0 7px 10px #5b5b5b;
 }
+
 .actionbtn {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
+
 .add-form button.submit-button.cancel {
   background: #474747;
 }
-
 
 .notes {
   position: relative;
   width: 410px;
 }
+
 .notes p {
   max-width: 410px;
   overflow: hidden;
