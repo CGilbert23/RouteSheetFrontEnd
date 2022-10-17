@@ -26,7 +26,7 @@ const List = ({
             <th>Year</th>
             <th>Make</th>
             <th>Model</th>
-            <th>UCM IN</th>
+            {/* <th>UCM IN</th> */}
             <th>Date In</th>
             <th>Current Date</th>
             <th>Days</th>
@@ -50,7 +50,7 @@ const List = ({
                 <td>{ele.year}</td>
                 <td>{ele.make}</td>
                 <td>{ele.model}</td>
-                <td>{parseDate(ele.ucm_in)}</td>
+                {/* <td>{parseDate(ele.ucm_in)}</td> */}
                 <td>{parseDate(ele.date_in)}</td>
                 <td>{parseDate(currentDate)}</td>
                 <td>{days}</td>

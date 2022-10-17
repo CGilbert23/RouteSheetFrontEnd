@@ -10,13 +10,16 @@ import SearchForm from "./forms/searchForm";
 import { logOut } from "../redux/actions/login";
 import * as utils from "../utils";
 
+
+var currentDateTime = new Date().toISOString();
+
 const initialForm = {
   dept_id: '',
   stock: '',
   year: '',
   make: '',
   model: '',
-  ucm_in: '',
+  ucm_in: currentDateTime,
   date_in: '',
   notes:'' 
 }
